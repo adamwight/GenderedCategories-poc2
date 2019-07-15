@@ -1,38 +1,38 @@
 {
-	"name": "BoilerPlate",
+	"name": "GenderedCategories-poc1",
 	"author": [
-		"Your Name"
+		"Adam Wight"
 	],
-	"url": "https://www.mediawiki.org/wiki/Extension:BoilerPlate",
-	"descriptionmsg": "boilerplate-desc",
+	"url": "https://www.mediawiki.org/wiki/Extension:GenderedCategories",
+	"descriptionmsg": "genderedcategories-desc",
 	"license-name": "GPL-2.0-or-later",
 	"type": "other",
 	"requires": {
 		"MediaWiki": ">= 1.32.0"
 	},
 	"AutoloadNamespaces": {
-		"MediaWiki\\Extension\\BoilerPlate\\": "includes/"
+		"MediaWiki\\Extension\\GenderedCategories\\": "includes/"
 	},
 	"config": {
-		"BoilerPlateEnableFoo": {
-			"description": "Enable the Foo feature.",
-			"value": true
+		"GenderedCategoriesEnableRewrite": {
+			"description": "Enable GenderedCategories rewriting.",
+			"value": false
 		}
 	},
 	"Hooks": {
-		"Something": "MediaWiki\\Extension\\BoilerPlate\\Hooks::onSomething"
+		"OutputPageMakeCategoryLinks": "MediaWiki\\Extension\\GenderedCategories\\Hooks::onOutputPageMakeCategoryLinks"
 	},
 	"MessagesDirs": {
-		"BoilerPlate": [
+		"GenderedCategories": [
 			"i18n"
 		]
 	},
 	"ResourceFileModulePaths": {
 		"localBasePath": "resources",
-		"remoteExtPath": "BoilerPlate/resources"
+		"remoteExtPath": "GenderedCategories/resources"
 	},
 	"ResourceModules": {
-		"ext.boilerPlate": {
+		"ext.genderedCategories": {
 			"dependencies": [],
 			"messages": [],
 			"styles": [],

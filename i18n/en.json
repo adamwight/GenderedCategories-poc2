@@ -1,8 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Your Name"
+			"Adam Wight"
 		]
 	},
-	"boilerplate-desc": "This is an example extension"
+	"genderedcategories-desc": "This is an example extension"
 }
