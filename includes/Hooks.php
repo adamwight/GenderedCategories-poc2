@@ -33,45 +33,6 @@ class Hooks {
 	static private $requiredCategory = 'Frau';
 
 
-	/**
-	 * @see https://www.mediawiki.org/wiki/Manual:Hooks/OutputPageMakeCategoryLinks
-	 * @param OutputPage &$out
-	 * @param array $categories associative array, keys are category names, values are category types ("normal" or "hidden")
-	 * @param array &$links intended to hold the result. Must be an associative array with category types as keys and arrays of HTML links as values.
-	 */
-	public static function onOutputPageMakeCategoryLinks( OutputPage &$out, array $categories, array &$links ) {
-		global $wgGenderedCategoriesEnableRewrite;
-
-		if ( false === $wgGenderedCategoriesEnableRewrite
-			|| !array_key_exists( self::$requiredCategory, $categories )
-		) {
-			return;
-		}
-
-		$services = MediaWikiServices::getInstance();
-		$linkRenderer = $services->getLinkRenderer();
-		$contentLanguage = $services->getContentLanguage();
-		$links = [];
-		foreach ( $categories as $category => $type ) {
-			$category = (string)$category;
-			$origcategory = $category;
-			$title = \Title::makeTitleSafe( NS_CATEGORY, $category );
-			if ( !$title ) {
-				continue;
-			}
-			$contentLanguage->findVariantLink( $category, $title, true );
-			if ( $category != $origcategory && array_key_exists( $category, $categories ) ) {
-				continue;
-			}
-			$rewrittenCategory = self::rewriteCategory( $category );
-			$text = $contentLanguage->convertHtml( $rewrittenCategory );
-			$links[$type][] = $linkRenderer->makeLink( $title, new HtmlArmor( $text ) );
-		}
-
-		// Prevent default processing.
-		return false;
-	}
-
 	private static function rewriteCategory( $category ) {
 		// TODO: Lots of nuances to address here: other genders, regex construction per language...
 		foreach ( self::$demoMap as $canonical => $gendered ) {

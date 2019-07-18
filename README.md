@@ -1,1 +1,1 @@
-This is a proof-of-concept for rewriting categories to respect gendered profession labels.
+This is a proof-of-concept for supporting aliased categories using hard redirects.
