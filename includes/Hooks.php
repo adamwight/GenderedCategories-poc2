@@ -19,9 +19,9 @@
 
 namespace MediaWiki\Extension\GenderedCategories;
 
-use HtmlArmor;
-use MediaWiki\MediaWikiServices;
-use OutputPage;
+use LinksUpdate;
+use Title;
+use WikiPage;
 
 class Hooks {
 
@@ -39,6 +39,24 @@ class Hooks {
 			$category = str_replace( $canonical, $gendered, $category );
 		}
 		return $category;
+	}
+
+	/**
+	 * @see https://www.mediawiki.org/wiki/Manual:Hooks/LinksUpdate
+	 * @param LinksUpdate $linksUpdate
+	 */
+	public static function onLinksUpdate( LinksUpdate &$linksUpdate ) {
+		$catsToAdd = [];
+		foreach ( $linksUpdate->mCategories as $category => $sortKey ) {
+			$title = Title::makeTitleSafe( NS_CATEGORY, $category );
+			$page = new WikiPage( $title );
+			$target = $page->getRedirectTarget();
+			if ( $target !== null ) {
+				$catsToAdd[$target->getDBkey()] = $sortKey;
+			}
+		}
+
+		$linksUpdate->mCategories = array_merge( $linksUpdate->mCategories, $catsToAdd );
 	}
 
 }

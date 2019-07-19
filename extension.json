@@ -20,7 +20,7 @@
 		}
 	},
 	"Hooks": {
-		"OutputPageMakeCategoryLinks": "MediaWiki\\Extension\\GenderedCategories\\Hooks::onOutputPageMakeCategoryLinks"
+		"LinksUpdate": "MediaWiki\\Extension\\GenderedCategories\\Hooks::onLinksUpdate"
 	},
 	"MessagesDirs": {
 		"GenderedCategories": [
