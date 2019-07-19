@@ -20,7 +20,8 @@
 		}
 	},
 	"Hooks": {
-		"LinksUpdate": "MediaWiki\\Extension\\GenderedCategories\\Hooks::onLinksUpdate"
+		"LinksUpdate": "MediaWiki\\Extension\\GenderedCategories\\Hooks::onLinksUpdate",
+		"PageContentSaveComplete": "MediaWiki\\Extension\\GenderedCategories\\Hooks::onPageContentSaveComplete"
 	},
 	"MessagesDirs": {
 		"GenderedCategories": [

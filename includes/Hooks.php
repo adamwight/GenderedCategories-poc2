@@ -19,8 +19,12 @@
 
 namespace MediaWiki\Extension\GenderedCategories;
 
+use Content;
 use LinksUpdate;
+use Revision;
+use Status;
 use Title;
+use User;
 use WikiPage;
 
 class Hooks {
@@ -57,6 +61,25 @@ class Hooks {
 		}
 
 		$linksUpdate->mCategories = array_merge( $linksUpdate->mCategories, $catsToAdd );
+	}
+
+	/**
+	 * When a category is saved we should call LinksUpdate on all members in case there is a
+	 * new redirect or a redirect was removed.
+	 * @see https://www.mediawiki.org/wiki/Manual:Hooks/PageContentSaveComplete
+	 */
+	public static function onPageContentSaveComplete(
+		WikiPage $wikiPage, User $user, Content $mainContent, $summaryText, $isMinor, $isWatch,
+		$section, &$flags, Revision $revision, Status $status, $originalRevId, $undidRevId
+	) {
+		if ( $wikiPage->getTitle()->getNamespace() === NS_CATEGORY ) {
+			LinksUpdate::queueRecursiveJobsForTable(
+				$wikiPage->getTitle(),
+				'categorylinks',
+				// FIXME: real action here.
+				'category-save',
+				$user->getName() );
+		}
 	}
 
 }
