@@ -29,22 +29,6 @@ use WikiPage;
 
 class Hooks {
 
-	// TODO: Building this map is a whole thing we're not getting into yet.
-	static private $demoMap = [
-		'Arzt' => 'Ärztin',
-		'Actor' => 'Actress',
-	];
-	static private $requiredCategory = 'Frau';
-
-
-	private static function rewriteCategory( $category ) {
-		// TODO: Lots of nuances to address here: other genders, regex construction per language...
-		foreach ( self::$demoMap as $canonical => $gendered ) {
-			$category = str_replace( $canonical, $gendered, $category );
-		}
-		return $category;
-	}
-
 	/**
 	 * @see https://www.mediawiki.org/wiki/Manual:Hooks/LinksUpdate
 	 * @param LinksUpdate $linksUpdate
